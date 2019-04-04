@@ -20,6 +20,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import victor.proxy.beanpostprocessor.ExpensiveOps_CachedViaBPP;
 import victor.proxy.cacheable.ExpensiveOps_Cacheable;
 import victor.proxy.classproxy.ExpensiveOps_ClassProxied;
 import victor.proxy.classproxy.ExpensiveOps_ClassProxy;
@@ -73,11 +74,17 @@ public class ProxyPerformanceTest {
                 context = SpringApplication.run(PerfProxySpringApp.class, args );
             }
             springCacheable = context.getBean(ExpensiveOps_Cacheable.class);
-//            System.out.println(springCacheable.getClass());
+            springCachedViaBPP = context.getBean(ExpensiveOps_CachedViaBPP.class);
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
+    
+    private ExpensiveOps_CachedViaBPP springCachedViaBPP;
+	@Benchmark
+	public void springCachedViaBPP() {
+		for (int i = 0; i< 10000; i++) springCachedViaBPP.isOdd(i);
+	}
 
     private ExpensiveOps_Cacheable springCacheable;
 	@Benchmark
