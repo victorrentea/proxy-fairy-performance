@@ -36,7 +36,7 @@ import victor.proxy.method.ExpensiveOps_CacheMethod;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 //@Warmup(iterations = 5, time = 2, timeUnit = TimeUnit.SECONDS)
 //@Measurement(iterations = 5, time = 2, timeUnit = TimeUnit.SECONDS)
-@Fork(1)
+//@Fork(1)
 public class ProxyPerformanceTest {
 
 	
